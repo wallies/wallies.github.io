@@ -1,1 +1,76 @@
-<!DOCTYPE html><html><head><link rel="stylesheet" href="/main.css"></head><body><h1>Welcome to Cam Parry's Awesome Github Page.</h1><h3>This is the start of your mind being blown. Enjoy.</h3></body></html>
+---
+layout: home
+title: Redfog Blog
+description: ""
+headline: Experiments with technology
+tags: [engineering, blog, tech]
+---
+
+{% for post in paginator.posts %}
+<article class="notepad-index-post post row">
+  <div class="small-12 medium-3 large-2 columns datetime">
+    <span class="notepad-post-meta">
+      <time datetime="{{ post.date | date_to_xmlschema }}">
+        <span class="day">{{ post.date | date: "%-d" }}</span>
+        <span class="month-year">{{ post.date | date: "%B %Y" }}</span>
+      </time>
+    </span>
+  </div>
+  <div class="small-12 medium-9 large-10 columns">
+    <header class="notepad-post-header">
+      <h3 class="notepad-post-title">
+        <a href="{{ post.url }}">{{ post.title }}{% if post.subtitle %}
+          <span class="post-subtitle">{{ post.subtitle }}</span>
+          {% endif %}</a>
+      </h3>
+    </header>
+    <section class="notepad-post-excerpt">
+      <p>
+        {% if post.summary %}
+          {{ post.summary }}
+        {% else %}
+          {{ post.content | strip_html | truncatewords:40 }}
+        {% endif %}
+      </p>
+    </section>
+    <div class="notepad-index-post-tags">
+      {% for category in post.categories %}
+        <a href="/categories/index.html#{{ category | cgi_encode }}" title="Other posts from the {{ category }} category">{{ category }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</article>
+{% endfor %}
+
+<nav class="pagination" role="navigation">
+{% if paginator.previous_page %}
+  {% if paginator.previous_page == 1 %}
+    <a class="newer-posts" href="{{ site.url }}">
+      <svg class="icon">
+        <use xlink:href="#chevron-left"></use>
+      </svg> Newer</a>
+  {% else %}
+    <a class="newer-posts" href="/page{{ paginator.previous_page }}">      
+      <svg class="icon">
+        <use xlink:href="#chevron-left"></use>
+      </svg> Newer</a>
+  {% endif %}
+{% else %}
+  <span class="newer-posts faded">
+    <svg class="icon">
+      <use xlink:href="#chevron-left"></use>
+    </svg> Newer</span>
+{% endif %}
+
+<span class="page-number">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+    {% if paginator.next_page %}
+     <a class="older-posts" href="/page{{ paginator.next_page }}/">Older <svg class="icon">
+       <use xlink:href="#chevron-right"></use>
+     </svg>
+     </a>
+    {% else %}
+      <span class="older-posts faded">Older <svg class="icon">
+        <use xlink:href="#chevron-right"></use>
+      </svg></span>
+    {% endif %}
+</nav>

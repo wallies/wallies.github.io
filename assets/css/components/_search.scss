@@ -1,0 +1,26 @@
+.search-form {
+  display: inline-block;
+  margin: 0;
+
+  label {
+    @extend %element-invisible;
+  }
+
+  .search-text {
+    float: left;
+    width: 12rem;
+    margin: 0;
+  }
+
+  .search-submit {
+    float: left;
+    margin: 0;
+    padding: .575rem .4rem .575rem .6rem;
+
+    span {
+      display: inline-block;
+      text-indent: -9999px;
+      line-height: 0;
+    }
+  }
+}

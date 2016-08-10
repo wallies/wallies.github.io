@@ -1,0 +1,36 @@
+---
+layout: page
+title: Category Index
+permalink: /categories/index.html
+title: Category Index
+tags: [Categories]
+description: "An archive of posts sorted by categories."
+
+---
+
+{% capture site_categories %}{% for category in site.categories %}{{ category | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+{% assign category_words = site_categories | split:',' | sort %}
+
+<ul class="tag-box inline">
+{% assign category_list = category_words %}
+  {% for category in category_list %}
+    <li><a href="#{{ category }}">{{ category }} <span>{{ site.categories[category].size }}</span></a></li>
+  {% endfor %}
+{% assign category_list = nil %}
+</ul>
+
+{% for category in category_words %}
+  <h2 id="{{ category }}">{{ category }}</h2>
+  <ul class="post-list">
+    {% assign pages_list = site.categories[category] %}
+    {% for post in pages_list %}
+      {% if post.title != null %}
+      {% if group == null or group == post.group %}
+        {% include post-listing.html %}
+      {% endif %}
+      {% endif %}
+    {% endfor %}
+    {% assign pages_list = nil %}
+    {% assign group = nil %}
+  </ul>
+{% endfor %}

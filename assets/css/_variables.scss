@@ -1,0 +1,61 @@
+// Fonts
+$open: "Open Sans", sans-serif;
+$montserrat: "Montserrat", sans-serif;
+$serif: "Georgia, Times New Roman, serif";
+
+
+// Colours
+$white: #fff;
+$grey-lighter: #fafafa;
+$grey-light: #f2f2f2;
+$grey: #ccc;
+$grey-mid: #555;
+$grey-dark: #333;
+$blue-pale: #c8f2ea;
+$blue: #0098cc;
+$blue-mid: #1071ce;
+$blue-dark: #2020ff;
+$green: #3f6b5b;
+$green-lime: #00c226;
+$orange: #f06f00;
+$red: #f00;
+$black: #000;
+$purple: #8a2be2;
+$magenta: #b91f49;
+
+$base-font-size: 16px;
+
+// Breakpoints
+
+$mobile: 320px;
+$nav-one-line: 905px;
+
+@mixin breakpoint($point) {
+  @if $point == verywidescreen {
+    @media only screen and (min-width: 90em) { @content ; }
+  }
+  @else if $point == widescreen {
+    @media only screen and (min-width: 90em) { @content ; }
+  }
+  @else if $point == desktop {
+    @media only screen and (min-width: 70em) { @content ; }
+  }
+  @else if $point == laptop {
+    @media only screen and (min-width: 43.75em) { @content ; }
+  }
+  @else if $point == tablet {
+    @media only screen and (min-width: 40.063em) { @content ; }
+  }
+  @else if $point == phablet {
+    @media only screen and (min-width: 37.5em)  { @content ; }
+  }
+  @else if $point == mobile {
+    @media only screen and (min-width: $mobile)  { @content ; }
+  }
+  @else if $point == mobileonly {
+    @media only screen and (max-width: 37.5em)  { @content ; }
+  }
+  @else {
+    @media only screen and (min-width: $point)  { @content ; }
+  }
+}

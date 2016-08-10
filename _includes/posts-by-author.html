@@ -1,0 +1,25 @@
+{% assign posts_by_author = "" | split: ""  %}
+{% for post in site.posts %}
+  {% for postauthor in post.author %}
+    {% assign post_author = site.data.authors[postauthor] %}
+    {% if (post_author.name == author.name) %}
+      {% assign posts_by_author = posts_by_author | push: post %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+  
+{% if posts_by_author.size > 1 %}
+<div class="row posts-by-author">
+  <div class="columns">
+    {% assign name = author.name | split: ' ' %}
+    <h3>Other posts by {{ name.first  }}</h3>
+    <ul class="post-list">
+      {% for post in posts_by_author %}
+        {% unless page.url == post.url %}
+          {% include post-listing.html %}
+        {% endunless %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}

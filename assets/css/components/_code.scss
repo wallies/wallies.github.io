@@ -1,0 +1,192 @@
+/* Comment */
+.highlight .err,
+/* Error */
+.highlight .g,
+/* Keyword */
+.highlight .l,
+/* Literal */
+.highlight .n,
+/* Name */
+.highlight .o,
+/* Operator */
+.highlight .x,
+/* Other */
+.highlight .p,
+  /* Generic.Deleted */
+.highlight .ge,
+  /* Generic.Heading */
+.highlight .gi,
+  /* Generic.Output */
+.highlight .gp,
+  /* Generic.Prompt */
+.highlight .gs,
+  /* Keyword.Type */
+.highlight .ld,
+  /* Literal.Number */
+.highlight .s,
+  /* Literal.String */
+.highlight .na,
+  /* Name.Attribute */
+.highlight .nb,
+  /* Name.Builtin */
+.highlight .nc,
+  /* Name.Constant */
+.highlight .nd,
+  /* Name.Entity */
+.highlight .ne,
+  /* Name.Exception */
+.highlight .nf,
+  /* Name.Function */
+.highlight .nl,
+  /* Name.Label */
+.highlight .nn,
+  /* Name.Namespace */
+.highlight .nx,
+  /* Name.Other */
+.highlight .py,
+  /* Name.Variable */
+.highlight .ow,
+  /* Operator.Word */
+.highlight .w,
+  /* Literal.Number.Oct */
+.highlight .sb,
+  /* Literal.String.Backtick */
+.highlight .sc,
+  /* Literal.String.Char */
+.highlight .sd,
+  /* Literal.String.Doc */
+.highlight .s2,
+  /* Literal.String.Double */
+.highlight .se,
+  /* Literal.String.Escape */
+.highlight .sh,
+  /* Literal.String.Heredoc */
+.highlight .si,
+  /* Literal.String.Interpol */
+.highlight .sx,
+  /* Literal.String.Other */
+.highlight .sr,
+  /* Literal.String.Regex */
+.highlight .s1,
+  /* Literal.String.Single */
+.highlight .ss,
+  /* Literal.String.Symbol */
+.highlight .bp {
+  color: $black;
+}
+
+/* Generic */
+.highlight .k,
+/* Generic.Traceback */
+.highlight .kc,
+  /* Keyword.Constant */
+.highlight .kd,
+  /* Keyword.Declaration */
+.highlight .kn,
+  /* Keyword.Namespace */
+.highlight .kp,
+  /* Keyword.Pseudo */
+.highlight .kr,
+  /* Name.Property */
+.highlight .nt {
+  font-weight: bold;
+  color: $orange;
+}
+
+/* Punctuation */
+.highlight .cm,
+/* Comment.Preproc */
+.highlight .c1,
+  /* Comment.Single */
+.highlight .cs,
+.highlight .c {
+  font-weight: bold;
+  color: $green;
+}
+
+/* Comment.Multiline */
+.highlight .cp {
+  font-weight: bold;
+  color: $blue-mid;
+  text-decoration: underline;
+}
+
+/* Comment.Special */
+.highlight .gd {
+  color: $blue-dark;
+  background-color: $blue-pale;
+}
+
+/* Generic.Emph */
+.highlight .gr {
+  color: $grey-lighter;
+  background-color: $red;
+}
+
+
+/* Generic.Inserted */
+.highlight .go {
+  font-weight: bold;
+  color: $blue-dark;
+  background-color: $grey-lighter;
+}
+
+/* Generic.Strong */
+.highlight .gu,
+  /* Generic.Error */
+.highlight .gh {
+  font-weight: bold;
+  color: $blue-dark;
+}
+
+/* Keyword.Reserved */
+.highlight .kt,
+/* Name.Tag */
+.highlight .nv,
+  /* Name.Builtin.Pseudo */
+.highlight .vc,
+/* Name.Variable.Class */
+.highlight .vg,
+  /* Name.Variable.Global */
+.highlight .vi {
+  color: $purple;
+  text-decoration: underline;
+}
+
+/* Name.Class */
+.highlight .no {
+  color: $magenta;
+  text-decoration: underline;
+}
+
+
+/* Generic.Subheading */
+.highlight .gt,
+/* Name.Decorator */
+.highlight .ni {
+  font-weight: bold;
+  color: $red;
+}
+
+/* Literal.Date */
+.highlight .m,
+/* Text.Whitespace */
+.highlight .mf,
+/* Literal.Number.Float */
+.highlight .mh,
+/* Literal.Number.Hex */
+.highlight .mi,
+/* Literal.Number.Integer */
+.highlight .mo,
+/* Name.Variable.Instance */
+.highlight .il {
+  color: $green-lime;
+  text-decoration: underline;
+}
+
+/* Literal.Number.Integer.Long */
+.chart {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 56.250rem;
+}

@@ -1,0 +1,33 @@
+{% comment %}
+  Load the job details up from the site config.
+{% endcomment %}
+{% assign jobs = site.data.jobs %}
+{% assign jobshow = '' %}
+
+{% comment %}
+  Try to match the author's team with a job
+{% endcomment %}
+{% for job in jobs %}
+  {% if job[1].categories contains author.team %}
+    {% assign jobteam = author.team %}
+    {% assign jobshow = job[1] %}
+  {% endif %}
+{% endfor %}
+
+{% comment %}
+  If the author has no team with a job, fall back to the default job
+{% endcomment %}
+{% if jobshow == '' %}
+  {% assign jobshow = jobs.default %}
+{% endif %}
+<div class="row">
+  <div class="columns">
+    <div class="job-listing">
+      <h2 class="large-text-right">
+        <a href="{{ jobshow.link }}" title="{{ jobshow.title }}">{{ jobshow.title }}</a>
+      </h2>
+      <p class="large-text-right">{{ jobshow.description }}</p>
+      <a href="{{ jobshow.link }}" class="button" target="_blank">Find out more</a>
+    </div>
+  </div>
+</div>

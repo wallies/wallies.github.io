@@ -1,1 +1,26 @@
-<!DOCTYPE html><html><head><link rel="stylesheet" href="/main.css"></head><body><h1>Welcome to Harp.</h1><h3>This is yours to own. Enjoy.</h3></body></html>
+---
+layout: page
+title: "PAGE NOT FOUND"
+permalink: /404.html
+---
+
+<div class="text-center">
+  <p>You've come to a dead end somehow. Please try navigating using the menu</p>
+
+  <ul class="post-list">
+    {% for link in site.links %}
+      <li>
+        <a href="{{ site.baseurl }}{{ link.url }}">{{ link.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<script>
+  // on 2016-02-01 GitHub Pages upgraded to Jekyll3, which broke all blog posts with trailing slashes.
+  // Try redirecting to no-slash version.
+  var url = location.href;
+  if (url.substr(url.length - 1) === '/') {
+    window.location = url.substr(0, url.length - 1);
+  }
+</script>

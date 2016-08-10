@@ -1,0 +1,60 @@
+<footer class="notepad-site-footer">
+  <div class="copyright">
+    <p>All content copyright <a href="{{ site.baseurl }}/about">{{ site.owner.name }}</a> &copy; {{ site.time | date: '%Y' }} &bull; All rights reserved &bull; </p>
+    <p>Proudly published with <a class="icon-ghost" href="https://jekyllrb.com/">Jekyll</a></p>
+  </div>
+  <div class="social-icons">
+    {% if site.owner.twitter %}
+    <a href="http://twitter.com/{{ site.owner.twitter }}">
+      <span class="fa-stack fa-lg">
+        <svg class="icon">
+          <use xlink:href="#twitter"></use>
+        </svg>
+        <span class="element-invisible">Twitter</span>
+      </span>
+    </a>
+    {% endif %}
+    {% if site.owner.google_plus %}
+    <a href="{{ site.owner.google_plus }}">
+      <span class="fa-stack fa-lg">
+        <svg class="icon">
+          <use xlink:href="#google-plus"></use>
+        </svg>
+        <span class="element-invisible">Google Plus</span>
+      </span>
+    </a>
+    {% endif %}
+    {% if site.owner.instagram %}
+    <a href="http://instagram.com/{{ site.owner.instagram }}">
+      <span class="fa-stack fa-lg">
+        <svg class="icon">
+          <use xlink:href="#instagram"></use>
+        </svg>
+        <span class="element-invisible">Instagram</span>
+      </span>
+    </a>
+    {% endif %}
+    {% if site.owner.github %}
+    <a href="http://github.com/{{ site.owner.github }}">
+      <span class="fa-stack fa-lg">
+        <svg class="icon">
+          <use xlink:href="#github"></use>
+        </svg>
+        <span class="element-invisible">Github</span>
+      </span>
+    </a>
+    {% endif %}
+    {% if site.owner.facebook %}
+    <a href="http://facebook.com/{{ site.owner.facebook }}">
+      <span class="fa-stack fa-lg">
+        <svg class="icon">
+          <use xlink:href="#facebook"></use>
+        </svg>
+        <span class="element-invisible">Facebook</span>
+      </span>
+    </a>
+    {% endif %}
+  </div>
+
+  <div class="cf"></div>
+</footer>
