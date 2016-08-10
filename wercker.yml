@@ -1,7 +1,11 @@
-box: wercker/android
-no-response-timeout: 16
+box: derdirtyharry/wercker-java-node-ruby
 build:
   steps:
+    - script:
+        name: install npm
+        code: |
+          sudo apt-get install -y nodejs
+          java -version
     - capgemini/language-qa:
         files_folder: _posts
         lang: en

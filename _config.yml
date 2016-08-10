@@ -148,7 +148,6 @@ include: [".htaccess"]
 exclude: ["lib", "config.rb", "Gemfile", "Capfile", "Gemfile.lock", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "gulpfile.js", "package.json", "node_modules", "README.md", "scss-lint.yml", "src", "backstop.json", "backstop_data"]
 
 gems:
-  - jekyll-redirect-from
   - jekyll-sitemap
   - jekyll-paginate
 
