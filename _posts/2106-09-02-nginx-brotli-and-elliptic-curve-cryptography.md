@@ -18,6 +18,7 @@ I are going to do this locally first using docker compose. So first we have to g
 I decided to use Elliptic curve Diffie-Hellman (ECDH) as it is a key agreement protocol allowing two parties, each having an elliptic curve public-private key pair, to establish a shared secret over an insecure channel. I then decided to use ssl ecdh curve secp521r1, as on one hand secp384r1 is a 384 bit Elliptic curve which most efficiently supports ssl_ciphers up to a SHA-384 hash and is compatible with all desktop and mobile clients. Using a larger hash value, like secp521r1, and then truncating down to 384 or 256 wastes around one(1) millisecond of extra cpu time. On the other hand, we are using secp521r1 due to its more difficult cracking potential and the fact that older OS's like XP can not solve the equation; i.e. those old compromised machines can not connect to us. Take a look at the NSA's paper titled, [The Case for Elliptic Curve Cryptography](http://www.nsa.gov/business/programs/elliptic_curve.shtml) for more details.
 
 For turning on Brotli compression we simply add the following to our nginx.conf file.
+
 ```
 brotli on;
 brotli_static on;
@@ -40,8 +41,13 @@ brotli_types
   image/svg+xml;
 ```
 
+
 In terms of Brotli compression level, there is a clear win enabling brotli level 1 if you had gzip level 1 enabled or brotli level 5 if you were comfortable with the CPU cost of gzip level 9 on dynamic assets and have capacity and can expect a 5-10% win size. 
-On the other hand if you just have static assets you can compress these ahead of time by just using brotli cli e.g. ```bro --input css/styles.css --output dist/css/styles.css.br```
+On the other hand if you just have static assets you can compress these ahead of time by just using brotli cli e.g. 
+
+```
+bro --input css/styles.css --output dist/css/styles.css.br
+```
 
 When testing Brotli in your browser we are looking for the 'Accept-Encoding' header under the Request headers section, as this is the browser signalling to the server what kinds of compressed content it can decompress with, so we are looking for ```Accept-Encoding: "gzip, deflate, br" ``` .
 
