@@ -9,7 +9,7 @@ comments: true
 share: true
 ---
 
-So I am going to test out Googles new [Brotli](https://github.com/google/brotli) compression and while I'm at at show you how to configure nginx with some basic defaults, as well as show you how to use [Elliptic curve cryptography](https://en.wikipedia.org/wiki/Elliptic_curve_cryptography), as an alternative to RSA. I will be doing this with Nginx compiled with [BoringSSL](https://www.chromium.org/Home/chromium-security/boringssl) using the awesome work done by Wonderwall - [BoringNginx Container](https://hub.docker.com/r/wonderfall/boring-nginx/).
+So I am going to test out Googles new [Brotli](https://github.com/google/brotli) compression and while I'm at it show you how to configure nginx with some basic defaults, as well as show you how to use [Elliptic curve cryptography](https://en.wikipedia.org/wiki/Elliptic_curve_cryptography), as an alternative to RSA. I will be doing this with Nginx compiled with [BoringSSL](https://www.chromium.org/Home/chromium-security/boringssl) using the awesome work done by Wonderwall - [BoringNginx Container](https://hub.docker.com/r/wonderfall/boring-nginx/).
 
 All source code examples for this are here https://github.com/wallies/nginx-ssl-experiments and demo can be seen here ssldemo.redfog.io
 
@@ -28,7 +28,8 @@ docker run -it --rm --name letsencrypt -v "$(pwd)/certs:/etc/letsencrypt" quay.i
 
 This will create an Elliptic curve cryptography certificate private key, signing request and then use the letsencrypt client to create a valid certificate.
 
-I decided to use Elliptic curve Diffie-Hellman (ECDH) as it is a key agreement protocol allowing two parties, each having an elliptic curve public-private key pair, to establish a shared secret over an insecure channel. I was then going to use ssl ecdh curve secp521r1, as on one hand secp384r1 is a 384 bit Elliptic curve which most efficiently supports ssl_ciphers up to a SHA-384 hash and is compatible with all desktop and mobile clients. Using a larger hash value, like secp521r1, and then truncating down to 384 or 256 wastes around one(1) millisecond of extra cpu time. On the other hand, we are using secp521r1 due to its more difficult cracking potential and the fact that older OS's like XP can not solve the equation; i.e. those old compromised machines can not connect to us. Take a look at the NSA's paper titled, [The Case for Elliptic Curve Cryptography](http://www.smithandcrown.com/open-research/the-case-for-elliptic-curve-cryptography/) for more details. Currently letsencrypt do not support the secp521r1 curve, so for now we will stick with secp384r1.
+I decided to use Elliptic curve Diffie-Hellman (ECDH) as it is a key agreement protocol allowing two parties, each having an elliptic curve public-private key pair, to establish a shared secret over an insecure channel. I was then going to use ssl ecdh curve secp521r1, as on one hand secp384r1 is a 384 bit Elliptic curve which most efficiently supports ssl_ciphers up to a SHA-384 hash and is compatible with all desktop and mobile clients. Using a larger hash value, like secp521r1, and then truncating down to 384 or 256 wastes around one(1) millisecond of extra cpu time. On the other hand, we are using secp521r1 due to its more difficult cracking potential and the fact that older OS's like XP can not solve the equation; i.e. those old compromised machines can not connect to us. Currently letsencrypt do not support the secp521r1 curve, so for now we will stick with secp384r1.
+Take a look at the NSA's paper titled, [The Case for Elliptic Curve Cryptography](http://www.smithandcrown.com/open-research/the-case-for-elliptic-curve-cryptography/) for more details.
 
 
 For turning on Brotli compression we simply add the following to our nginx.conf file. 
@@ -63,9 +64,9 @@ On the other hand if you just have static assets you can compress these ahead of
 bro --input css/styles.css --output dist/css/styles.css.br
 ```
 
-When testing Brotli in your browser we are looking for the 'Accept-Encoding' header under the Request headers section, as this is the browser signalling to the server what kinds of compressed content it can decompress with, so we are looking for "Accept-Encoding: 'gzip, deflate, br' ".
+When testing Brotli in your browser we are looking for the '**Accept-Encoding**' header under the Request headers section, as this is the browser signalling to the server what kinds of compressed content it can decompress with, so we are looking for " **Accept-Encoding: 'gzip, deflate, br'** ".
 
-Now that we have confirmed the browser supports the brotli encoding, we must confirm that the server supports the compression as well, so we will look at the 'Content-Encoding' header under the Response headers section. We should see " Content-Encoding: 'br' " , as this is what we turned on for nginx which is serving our application.
+Now that we have confirmed the browser supports the brotli encoding, we must confirm that the server supports the compression as well, so we will look at the '**Content-Encoding**' header under the Response headers section. We should see " **Content-Encoding: 'br'** " , as this is what we turned on for nginx which is serving our application.
 
 Now that we have tested everything is working locally, we can set it up on a live server. I am going to use [Lets Encrypt](https://letsencrypt.org/). There are good instructions [here](https://manas.com.ar/blog/2016/01/25/letsencrypt-certificate-auto-renewal-in-docker-powered-nginx-reverse-proxy.html) on how to set this up with Nginx without requiring extra installed packages. So we run the docker command to generate our letencrypt certs they should be now be in '/etc/letsencrypt/live/'.  Now we can run our application up and run a quick test against [SSL Labs test](https://www.ssllabs.com/ssltest/) or [Free SSL Server Test](https://www.htbridge.com/ssl/). You can test either local or live setup by running one of the below commands.
 
@@ -73,14 +74,12 @@ Now that we have tested everything is working locally, we can set it up on a liv
 
 ```
 docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d
-
 ```
 
 ### Live
 
 ```
 sh docker-machine.sh
-
 ```
 
 If you are after best current practices regarding configuration of cyptographic tools and online communication, head to [Better Crypto](https://bettercrypto.org/).
