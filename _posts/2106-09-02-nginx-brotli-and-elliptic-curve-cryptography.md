@@ -21,9 +21,9 @@ docker run --rm -it --name openssl wallies/openssl openssl ecparam -list_curves
 
 docker run --rm -it --name openssl -v $(pwd)/certs:/certs wallies/openssl openssl ecparam -out /certs/ec_key.pem -name secp384r1 -noout -genkey
 
-docker run --rm -it --name openssl -v $(pwd)/certs:/certs -e ALT_NAME="DNS:xip.io,DNS:127.0.0.1.xip.io" wallies/openssl openssl req -new -key /certs/ec_key.pem -sha256 -nodes -outform pem -reqexts SAN -subj "/C=UK/ST=London/L=London/O=xip/OU=IT/CN=xip.io" -out /certs/ecc.csr
+docker run --rm -it --name openssl -v $(pwd)/certs:/certs -e ALT_NAME="DNS:pagekite.me,DNS:ssldemo.pagekite.me" wallies/openssl openssl req -new -key /certs/ec_key.pem -sha256 -nodes -outform pem -reqexts SAN -subj "/C=UK/ST=London/L=London/O=pagekite/OU=IT/CN=pagekite.me" -out /certs/ecc.csr
 
-docker run -it --rm --name letsencrypt -v "$(pwd)/certs:/etc/letsencrypt" quay.io/letsencrypt/letsencrypt certonly --standalone --csr /etc/letsencrypt/ecc.csr --agree-tos --renew-by-default --email info@xip.io -d xip.io -d 127.0.0.1.xip.io
+docker run --rm -it --name openssl -v $(pwd)/certs:/certs wallies/openssl openssl req -x509 -sha256 -days 365 -key /certs/ec_key.pem -in /certs/ecc.csr -subj "/C=UK/ST=London/L=London/O=xip/OU=IT/CN=pagekite.me" -out /certs/ecc_cert.pem
 ```
 
 This will create an Elliptic curve cryptography certificate private key, signing request and then use the letsencrypt client to create a valid certificate.
@@ -66,19 +66,30 @@ bro --input css/styles.css --output dist/css/styles.css.br
 
 When testing Brotli in your browser we are looking for the '**Accept-Encoding**' header under the Request headers section, as this is the browser signalling to the server what kinds of compressed content it can decompress with, so we are looking for " **Accept-Encoding: 'gzip, deflate, br'** ".
 
+We then start up our docker compose dev setup, expose it using ngrok or pagekite and test against https://www.htbridge.com/websec/. This will just test our Nginx Server configuration. I tried to expose through ngrok or pagekite so I could try and use letsencrypt via a tunnel but it wasn't working, so have decided all I need to really do is validate my server configuration. You will notice we are using docker-compose with overrides here, which I find useful if using docker-compose for different environments or different test cases with a shared base configuration. I have also added the seccomp security option to the prod docker-compose file, which is just a copy of the default one which is used by docker, but it does show what the defaults you are getting.
+
+```
+### Start dev setup
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d
+
+### Expose service to internet
+docker run -it --rm --net host --name pagekite wattos/docker-pagekite 443 https://ssldemos.pagekite.me:443
+```
+
 Now that we have confirmed the browser supports the brotli encoding, we must confirm that the server supports the compression as well, so we will look at the '**Content-Encoding**' header under the Response headers section. We should see " **Content-Encoding: 'br'** " , as this is what we turned on for nginx which is serving our application.
 
-Now that we have tested everything is working locally, we can set it up on a live server. I am going to use [Lets Encrypt](https://letsencrypt.org/). There are good instructions [here](https://manas.com.ar/blog/2016/01/25/letsencrypt-certificate-auto-renewal-in-docker-powered-nginx-reverse-proxy.html) on how to set this up with Nginx without requiring extra installed packages. So we run the docker command to generate our letencrypt certs they should be now be in '/etc/letsencrypt/live/'.  Now we can run our application up and run a quick test against [SSL Labs test](https://www.ssllabs.com/ssltest/) or [Free SSL Server Test](https://www.htbridge.com/ssl/). You can test either local or live setup by running one of the below commands.
+Now that we have tested everything is working locally, we can set it up on a live server. 
+We run the below script, which will setup our letsencypt certificate using our previously generated key and signing request. It will then use docker-machine to startup a server on digital ocean, you can change this by using a different docker-machine driver. It will then grab the docker environment variables for that machine so we can run docker-compose against it.  Now we can run our application up and run a full test against [SSL Labs test](https://www.ssllabs.com/ssltest/) or [Free SSL Server Test](https://www.htbridge.com/ssl/).
 
-### Local
-
-```
-docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d
-```
 
 ### Live
 
 ```
+You will need to export two variables first to talk to digital ocean and then to get the right domain name e.g.
+
+export DOTOKEN=your-api-token
+export DOMAIN=dns-domain
+
 sh docker-machine.sh
 ```
 
