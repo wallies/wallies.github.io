@@ -10,7 +10,7 @@ LABEL "com.github.actions.description"="Builds & deploys the project to GitHub P
 LABEL "com.github.actions.icon"="globe"
 LABEL "com.github.actions.color"="green"
 
-LABEL "repository"="http://github.com/BryanSchuetz/jekyll-deploy-gh-pages"
+LABEL "repository"="http://github.com/wallies/wallies.github.io"
 
 ADD entrypoint.sh /entrypoint.sh
 
