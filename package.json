@@ -2,7 +2,7 @@
   "repository": "https://github.com/wallies/wallies.github.io/",
   "devDependencies": {
     "backstopjs": "^6.0.1",
-    "browser-sync": "^2.12.2",
+    "browser-sync": "^3.0.2",
     "gulp": "^4.0.2",
     "gulp-cheerio": "^1.0.0",
     "gulp-imagemin": "^9.0.0",
